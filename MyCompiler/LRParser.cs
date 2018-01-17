@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace MyCompiler
 {
-    public class LrParser
+    public class LRParser
     {
-        public LrParser(Rule[] ruleses, Word[] words, int[,] ruleTable, int countOfRules)
+        public LRParser(Rule[] ruleses, Word[] words, int[,] ruleTable, int countOfRules)
         {
             Rules = ruleses;
             Words = words;
@@ -14,23 +14,12 @@ namespace MyCompiler
             CountOfRules = countOfRules;
         }
 
-        public LrParser(LRParserLoading loading)
+        public LRParser(LRParserLoading loading)
         {
             Words = loading.Words;
             Rules = loading.Rules;
             RuleRuleTable = loading.ControlTable;
         }
-
-        /// <summary>
-        /// Делегат, для методов информирования
-        /// </summary>
-        /// <param name="text">Текст сообщения</param>
-        public delegate void PrintDelegate(string text);
-
-        public event PrintDelegate PrintCompileInfo = (str) => { };
-        public event PrintDelegate PrintCompileResult = (str) => { };
-        public event PrintDelegate PrintMessage = (str) => { };
-
         /// <summary>
         /// Коллекция правил, для компиляции
         /// </summary>
@@ -58,21 +47,21 @@ namespace MyCompiler
             {
                 s1 += string.Format("{0} ", Words[word.Number].Value);
             }
-            PrintCompileInfo.Invoke("\nСтрока:" + s1 + '\n');
+            CompilerEvent.PrintCompileInfoLRParser.Invoke("\nСтрока:" + s1 + '\n');
             string s2 = "";
 
             foreach (var arrVal in arrS)
             {
                 s2 += string.Format("{0} ", arrVal.Value); 
             }
-            PrintCompileInfo.Invoke(@"Магазин:" + s2 + '\n');
+            CompilerEvent.PrintCompileInfoLRParser.Invoke(@"Магазин:" + s2 + '\n');
             string s3 = "";
 
             foreach (var rule in rulesFounded)
             {
                 s3 = s3 + (rule + 1) + " ";
             }
-            PrintCompileInfo.Invoke(@"Правила:" + s3 + '\n');
+            CompilerEvent.PrintCompileInfoLRParser.Invoke(@"Правила:" + s3 + '\n');
         }
 
         /// <summary>
@@ -155,7 +144,7 @@ namespace MyCompiler
                         // TODO: Убрать первый сивол, заменить
                         if ((stack.Last.Value.Number == Words.First().Number) && (stack.First.Value.Number == Words.Last().Number))
                         {
-                            PrintCompileResult.Invoke(stack.Last.Value.Temp);
+                            CompilerEvent.PrintCompileResult.Invoke(stack.Last.Value.Temp);
                             return;
                         }
                     }
@@ -248,7 +237,7 @@ namespace MyCompiler
 
                                 action = CompileActions.Next;
                                 //PrintCompileResult.Invoke($"Value: {node.Value.Value} \nRule: {node.Value.Number} \nTemp: {node.Value.Temp}");
-                                PrintCompileResult.Invoke(string.Format("Value: {0} \nRule: {1} \nTemp: {2}", node.Value.Value, node.Value.Number, node.Value.Temp));
+                                CompilerEvent.PrintCompileResult.Invoke(string.Format("Value: {0} \nRule: {1} \nTemp: {2}", node.Value.Value, node.Value.Number, node.Value.Temp));
                                 break;
                                 
                             }
@@ -257,8 +246,8 @@ namespace MyCompiler
                 }
                 if (action != CompileActions.Next)
                 {
-                    PrintCompileInfo.Invoke(@"Ошибка при выполнении восходящего разбора!");
-                    PrintCompileResult.Invoke("");
+                    CompilerEvent.PrintCompileInfoLRParser.Invoke(@"Ошибка при выполнении восходящего разбора!");
+                    CompilerEvent.PrintCompileResult.Invoke("");
                     return;
                 }
                 PrintInfo(stack, rulesFound, splittedWords);
@@ -307,8 +296,9 @@ namespace MyCompiler
 
                     return 1;
                 }
-                PrintMessage.Invoke(@"Нужно вводить вещественные" + '\n' + @" числа с порядком!" + '\r' +
-                                    @"Ошибка --> " + str.Substring(startPos, endPos + 1 - startPos));
+                CompilerEvent.PrintMessageLRParser.Invoke(@"Нужно вводить вещественные" + '\n' + @" числа с порядком!" + '\r' +
+                                                          @"Ошибка --> " + str.Substring(startPos, endPos + 1 - startPos));
+                
                 return -1;
             }
             return 0;

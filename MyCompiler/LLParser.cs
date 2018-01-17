@@ -86,12 +86,12 @@ namespace MyCompiler
             if (number.Length > 8)
             {
                 check_number = NumberCheck.Error;
-                LLParserEvent.PrintMessage("Длина идентификатора должна быть меньше 8 символов!\nОшибка --> " + number);
+                CompilerEvent.PrintMessageLLParser("Длина идентификатора должна быть меньше 8 символов!\nОшибка --> " + number);
             }
             if (number.Length == 0)
             {
                 check_number = NumberCheck.Error;
-                LLParserEvent.PrintMessage("Длина идентификатора должна быть больше 0 символов!\n");
+                CompilerEvent.PrintMessageLLParser("Длина идентификатора должна быть больше 0 символов!\n");
             }
         }
         /// <summary>
@@ -160,7 +160,7 @@ namespace MyCompiler
                 index_j = Search_Index_J(laM[0]);
                 if (m_tabel[index_j - 1, index_i - 1] == 31)
                 {
-                    LLParserEvent.PrintCompileInfo("Ошибка при выполнении нисходящего разбора!");
+                    CompilerEvent.PrintCompileInfoLLParser("Ошибка при выполнении нисходящего разбора!");
                     m_element_str.Clear();
                     break;
                 }
@@ -185,9 +185,9 @@ namespace MyCompiler
             {
                 s1 += element.m_name + " ";
             }
-            LLParserEvent.PrintCompileInfo("\nСтрока:" + s1);
-            LLParserEvent.PrintCompileInfo("Магазин:" + str_nterminals);
-            LLParserEvent.PrintCompileInfo("Правила:" + pr);
+            CompilerEvent.PrintCompileInfoLLParser("\nСтрока:" + s1);
+            CompilerEvent.PrintCompileInfoLLParser("Магазин:" + str_nterminals);
+            CompilerEvent.PrintCompileInfoLLParser("Правила:" + pr);
         }
         /// <summary>
         /// Формирование списка элементов из терминалов

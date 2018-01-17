@@ -15,66 +15,65 @@ namespace MyCompiler
     {
         LLParserLoading ll_loading = new LLParserLoading();
         LRParserLoading lr_loading = new LRParserLoading();
-        public LrParser Analysis;
+
         public CompilerGUI()
         {
             InitializeComponent();
-            Analysis = new LrParser(lr_loading);
-            Analysis.PrintCompileInfo += AnalysisOnPrintCompileInfo1;
-            Analysis.PrintCompileResult += AnalysisOnPrintCompileResult1;
-            Analysis.PrintMessage += AnalysisOnPrintMessage;
-            LLParserEvent.PrintCompileInfo = new LLParserEvent.PrintResult(AnalysisOnPrintCompileInfo);
-            LLParserEvent.PrintMessage = new LLParserEvent.PrintResult(AnalysisOnPrintMessage);
-            textBox1.Text = "else else := id const then := id const if > id id then else := id const then := id const if > id id if > const const else := id const then := id const if & id id";
+            CompilerEvent.PrintCompileInfoLLParser = new CompilerEvent.PrintResult(PrintCompileInfoLLParser);
+            CompilerEvent.PrintMessageLLParser = new CompilerEvent.PrintResult(PrintMessage);
+            CompilerEvent.PrintCompileInfoLRParser = new CompilerEvent.PrintResult(PrintCompileInfoLRParser);
+            CompilerEvent.PrintMessageLRParser = new CompilerEvent.PrintResult(PrintMessage);
+            CompilerEvent.PrintCompileResult = new CompilerEvent.PrintResult(PrintCompileResult);
+            textInputData.Text = "else else := id const then := id const if > id id then else := id const then := id const if > id id if > const const else := id const then := id const if & id id";
         }
 
-        private void AnalysisOnPrintMessage(string text)
+        private void PrintMessage(string text)
         {
             MessageBox.Show(text);
         }
-        private void AnalysisOnPrintCompileInfo(string text)
+        private void PrintCompileInfoLLParser(string text)
         {
             if (!InvokeRequired)
             {
-                richTextBox1.AppendText(text + "\r");
-                richTextBox1.ScrollToCaret();
+                richTextLLParser.AppendText(text + "\r");
+                richTextLLParser.ScrollToCaret();
             }
             else
-                Invoke(new LrParser.PrintDelegate(AnalysisOnPrintCompileInfo), new object[] { text });
+                Invoke(new CompilerEvent.PrintResult(PrintCompileInfoLLParser), new object[] { text });
         }
 
-        private void AnalysisOnPrintCompileInfo1(string text)
+        private void PrintCompileInfoLRParser(string text)
         {
             if (!InvokeRequired)
             {  
-                richTextBox2.AppendText(text + "\r");
-                richTextBox2.ScrollToCaret();
+                richTextLRParser.AppendText(text + "\r");
+                richTextLRParser.ScrollToCaret();
             }
             else
-                Invoke(new LrParser.PrintDelegate(AnalysisOnPrintCompileInfo1), new object[] { text });
+                Invoke(new CompilerEvent.PrintResult(PrintCompileInfoLRParser), new object[] { text });
 
         }
-        private void AnalysisOnPrintCompileResult1(string text)
+        private void PrintCompileResult(string text)
         {
             if (!InvokeRequired)
-                textBox2.Text = text;
+                textCompiler.Text = text;
             else
-                Invoke(new LrParser.PrintDelegate(AnalysisOnPrintCompileResult1), new object[] { text });
+                Invoke(new CompilerEvent.PrintResult(PrintCompileResult), new object[] { text });
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            richTextBox1.Clear();
+            richTextLLParser.Clear();
             LLParser ll_parser = new LLParser(ll_loading);
-            ll_parser.Run(textBox1.Text);
+            ll_parser.Run(textInputData.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            richTextBox2.Clear();
-            textBox2.Clear();
-
-            string str = textBox1.Text;
-            Thread compileThread = new Thread(Analysis.Run);
+            richTextLRParser.Clear();
+            textCompiler.Clear();
+            LRParser lr_parser = new LRParser(lr_loading);
+            string str = textInputData.Text;
+            Thread compileThread = new Thread(lr_parser.Run);
             compileThread.Start(str);
         }
 
@@ -82,19 +81,35 @@ namespace MyCompiler
         {
            
 
-            richTextBox2.Clear();
-            textBox2.Clear();
-
-            string str = textBox1.Text;
-            Thread compileThread = new Thread(Analysis.Run);
+            richTextLRParser.Clear();
+            textCompiler.Clear();
+            LRParser lr_parser = new LRParser(lr_loading);
+            string str = textInputData.Text;
+            Thread compileThread = new Thread(lr_parser.Run);
             compileThread.Start(str);
 
-            richTextBox1.Clear();
+            richTextLLParser.Clear();
             LLParser ll_parser = new LLParser(ll_loading);
           //  ll_parser.Run(textBox1.Text);
             Thread compileThread1 = new Thread(ll_parser.Run);
             compileThread1.Start(str);
             
+        }
+
+        private void butRun_Click(object sender, EventArgs e)
+        {
+            if (checkLLParser.Checked)
+            {
+                LLParser ll_parser = new LLParser(ll_loading);
+                Thread compileThread1 = new Thread(ll_parser.Run);
+                compileThread1.Start(textInputData.Text);
+            }
+            if (checkLRParser.Checked)
+            {
+                LRParser lr_parser = new LRParser(lr_loading);
+                Thread compileThread = new Thread(lr_parser.Run);
+                compileThread.Start(textInputData.Text);
+            }
         }
     }
 }

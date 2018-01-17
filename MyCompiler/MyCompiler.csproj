@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="CompileActions.cs" />
     <Compile Include="LLParser.cs" />
-    <Compile Include="LLParserEvent.cs" />
+    <Compile Include="CompilerEvent.cs" />
     <Compile Include="CompilerGUI.cs">
       <SubType>Form</SubType>
     </Compile>
