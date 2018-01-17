@@ -56,14 +56,14 @@
     <Compile Include="CompilerGUI.Designer.cs">
       <DependentUpon>CompilerGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="LLParser\Grammatics.cs" />
+    <Compile Include="LLParser\Type\Grammatics.cs" />
     <Compile Include="LLParser\LLParserLoading.cs" />
     <Compile Include="LRParser\LRParser.cs" />
     <Compile Include="LRParser\LRParserLoading.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LRParser\Rule.cs" />
-    <Compile Include="LRParser\Word.cs" />
+    <Compile Include="LRParser\Type\Rule.cs" />
+    <Compile Include="LRParser\Type\Word.cs" />
     <EmbeddedResource Include="CompilerGUI.resx">
       <DependentUpon>CompilerGUI.cs</DependentUpon>
     </EmbeddedResource>
