@@ -75,7 +75,7 @@ namespace MyCompiler
                  string condition = arrSNode.Next.Next.Next.Next.Next.Value.Temp;
                 string then =  arrSNode.Next.Next.Next.Value.Temp;
                 string ifelse = arrSNode.Next.Value.Temp;
-                arrSNode.Value.Temp = string.Format("if ( {2} ){{ {1}; }} else {{ {0}; }} {3}", ifelse, then, condition, arrSNode.Next.Next.Next.Next.Next.Next.Value.Temp);
+                arrSNode.Value.Temp = string.Format("if ( {2} )\r\n{{ {1} }} \r\nelse\r\n{{ {0} }}\r\n {3}", ifelse, then, condition, arrSNode.Next.Next.Next.Next.Next.Next.Value.Temp);
             }
             if (ruleNumber == 2)
                 arrSNode.Value.Temp = string.Format("{0} =", arrSNode.Next.Value.Temp);

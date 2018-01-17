@@ -22,6 +22,7 @@ namespace MyCompiler
             CompilerEvent.PrintMessageLRParser = new CompilerEvent.PrintResult(PrintMessage);
             CompilerEvent.PrintCompileResult = new CompilerEvent.PrintResult(PrintCompileResult);
             textInputData.Text = "else else := id const then := id const if > id id then else := id const then := id const if > id id if > const const else := id const then := id const if & id id";
+            textInputData.Text = "else else := x ABF then := y FB if > x y then else := index [ 0 ] AB then := k 15A if & max s if > Max number1 else := s + s 1 then := number [ 1 ] * number [ 2 ] FFF if | n s";
         }
 
         private void PrintMessage(string text)

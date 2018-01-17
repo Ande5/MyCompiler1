@@ -49,6 +49,7 @@
             // 
             // textInputData
             // 
+            this.textInputData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textInputData.Location = new System.Drawing.Point(13, 33);
             this.textInputData.Multiline = true;
             this.textInputData.Name = "textInputData";
@@ -58,6 +59,7 @@
             // richTextLLParser
             // 
             this.richTextLLParser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextLLParser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextLLParser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.richTextLLParser.Location = new System.Drawing.Point(13, 160);
             this.richTextLLParser.Name = "richTextLLParser";
@@ -68,6 +70,7 @@
             // richTextLRParser
             // 
             this.richTextLRParser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextLRParser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextLRParser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.richTextLRParser.Location = new System.Drawing.Point(11, 291);
             this.richTextLRParser.Name = "richTextLRParser";
@@ -77,9 +80,11 @@
             // 
             // textCompiler
             // 
+            this.textCompiler.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textCompiler.Location = new System.Drawing.Point(12, 416);
             this.textCompiler.Multiline = true;
             this.textCompiler.Name = "textCompiler";
+            this.textCompiler.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textCompiler.Size = new System.Drawing.Size(488, 113);
             this.textCompiler.TabIndex = 4;
             // 
