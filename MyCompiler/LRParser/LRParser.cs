@@ -6,14 +6,6 @@ namespace MyCompiler
 {
     public class LRParser
     {
-        public LRParser(Rule[] ruleses, Word[] words, int[,] ruleTable, int countOfRules)
-        {
-            Rules = ruleses;
-            Words = words;
-            RuleRuleTable = ruleTable;
-            CountOfRules = countOfRules;
-        }
-
         public LRParser(LRParserLoading loading)
         {
             Words = loading.Words;
@@ -305,48 +297,13 @@ namespace MyCompiler
         }
 
         /// <summary>
-        /// Метод поиска (парсинга) входной строки
-        /// Заполняется массив <see cref="Words"/> нашими символами грамматики (:=, if, и т.д.)
-        /// </summary>
-        /// <param name="str">Строка, в которой осуществляется поиск</param>
-        /// <param name="startPos">Начальная позиция, для поиска</param>
-        /// <param name="endPos">Конечная позиция, для поиска</param>
-        /// <param name="splittedWords"></param>
-        /// <returns> Возвращяется номер символа в грамматике </returns>
-        public int IsThisOperator(string str, int startPos, int endPos, Queue<Word> splittedWords)
-        {
-            if (str[startPos] == ' ') startPos += 1;
-            for (var i = CountOfRules; i < Rules.Length; i++)
-            {
-                if (endPos - startPos + 1 == (Words[i].Value).Length)
-                {
-                    int srchLength = 0;
-                    for (var j = 1; j <= (Words[i].Value).Length; j++)
-                    {
-                        if (str[startPos + j - 1] == Words[i].Value[j - 1]) srchLength = srchLength + 1;
-                    }
-                    if (endPos - startPos + 1 == srchLength)
-                    {
-                        splittedWords.Enqueue(new Word(i, Words[i].Value));
-                        return i;
-                    }
-                }
-            }
-            return 0;
-        }
-
-        /// <summary>
         /// Парсит входную строку
         /// </summary>
         /// <param name="str">Строка, для парсинга</param>
         /// <returns>Очередь распарщенных слов</returns>
         public Queue<Word> Up(string str)
         {
-
             string[] list = str.Split(' ');
-
-
-
             Queue<string> words = new Queue<string>(list);
 
             //if (words.Contains("const"))
@@ -381,9 +338,6 @@ namespace MyCompiler
                         splittedWords.Enqueue(new Word(10, "id") { Temp = word });
                     }
                 }
-
-                
-
             }
             splittedWords.Enqueue(new Word(20, "$"));
             //TODO: Не забыть поставить символ конца цепочки

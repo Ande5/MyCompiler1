@@ -13,9 +13,6 @@ namespace MyCompiler
 {
     public partial class CompilerGUI : Form
     {
-        LLParserLoading ll_loading = new LLParserLoading();
-        LRParserLoading lr_loading = new LRParserLoading();
-
         public CompilerGUI()
         {
             InitializeComponent();
@@ -60,56 +57,28 @@ namespace MyCompiler
             else
                 Invoke(new CompilerEvent.PrintResult(PrintCompileResult), new object[] { text });
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            richTextLLParser.Clear();
-            LLParser ll_parser = new LLParser(ll_loading);
-            ll_parser.Run(textInputData.Text);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            richTextLRParser.Clear();
-            textCompiler.Clear();
-            LRParser lr_parser = new LRParser(lr_loading);
-            string str = textInputData.Text;
-            Thread compileThread = new Thread(lr_parser.Run);
-            compileThread.Start(str);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-           
-
-            richTextLRParser.Clear();
-            textCompiler.Clear();
-            LRParser lr_parser = new LRParser(lr_loading);
-            string str = textInputData.Text;
-            Thread compileThread = new Thread(lr_parser.Run);
-            compileThread.Start(str);
-
-            richTextLLParser.Clear();
-            LLParser ll_parser = new LLParser(ll_loading);
-          //  ll_parser.Run(textBox1.Text);
-            Thread compileThread1 = new Thread(ll_parser.Run);
-            compileThread1.Start(str);
-            
-        }
-
         private void butRun_Click(object sender, EventArgs e)
         {
+                  ClearParser();
             if (checkLLParser.Checked)
             {
-                LLParser ll_parser = new LLParser(ll_loading);
+                LLParser ll_parser = new LLParser(new LLParserLoading());
                 Thread compileThread1 = new Thread(ll_parser.Run);
                 compileThread1.Start(textInputData.Text);
             }
             if (checkLRParser.Checked)
             {
-                LRParser lr_parser = new LRParser(lr_loading);
+                LRParser lr_parser = new LRParser(new LRParserLoading());
                 Thread compileThread = new Thread(lr_parser.Run);
                 compileThread.Start(textInputData.Text);
             }
+        }
+        
+        private void ClearParser()
+        {
+            richTextLLParser.Clear();
+            richTextLRParser.Clear();
+            textCompiler.Clear();
         }
     }
 }
