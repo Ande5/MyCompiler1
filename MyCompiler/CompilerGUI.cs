@@ -84,5 +84,10 @@ namespace MyCompiler
             richTextLRParser.Clear();
             textCompiler.Clear();
         }
+
+        private void labelInfo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Выполнил: студент группы 1490\n\t  Щелоков А.С.\nПроектирование компиляторов Вариант №6", "О программе!");
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.labelLine2 = new System.Windows.Forms.Label();
             this.labelOutputC = new System.Windows.Forms.Label();
             this.labelLine3 = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.groupControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +91,7 @@
             // 
             // groupControl
             // 
+            this.groupControl.Controls.Add(this.labelInfo);
             this.groupControl.Controls.Add(this.butRun);
             this.groupControl.Controls.Add(this.checkLRParser);
             this.groupControl.Controls.Add(this.checkLLParser);
@@ -103,7 +105,7 @@
             // 
             // butRun
             // 
-            this.butRun.Location = new System.Drawing.Point(42, 83);
+            this.butRun.Location = new System.Drawing.Point(38, 76);
             this.butRun.Name = "butRun";
             this.butRun.Size = new System.Drawing.Size(139, 29);
             this.butRun.TabIndex = 2;
@@ -214,6 +216,17 @@
             this.labelLine3.TabIndex = 15;
             this.labelLine3.Text = "___________________________________________________________________";
             // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Font = new System.Drawing.Font("Times New Roman", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelInfo.Location = new System.Drawing.Point(62, 108);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(95, 18);
+            this.labelInfo.TabIndex = 3;
+            this.labelInfo.Text = "О программе";
+            this.labelInfo.Click += new System.EventHandler(this.labelInfo_Click);
+            // 
             // CompilerGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,6 +276,7 @@
         private System.Windows.Forms.Label labelLine2;
         private System.Windows.Forms.Label labelOutputC;
         private System.Windows.Forms.Label labelLine3;
+        private System.Windows.Forms.Label labelInfo;
     }
 }
 

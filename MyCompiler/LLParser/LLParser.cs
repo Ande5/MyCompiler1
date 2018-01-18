@@ -128,6 +128,11 @@ namespace MyCompiler
                 return NumberCheck.False;
             }
         }
+        /// <summary>
+        /// Проверит являеться ли логическим выражением
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public bool BooleanNumber(string str)
         {
             try
@@ -141,6 +146,11 @@ namespace MyCompiler
             catch { return false; }
             return false;
         }
+        /// <summary>
+        /// Проверить число являеться ли шестнадцатеричным числом 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public bool CheckNumber16(string str)
         {
             bool good;
