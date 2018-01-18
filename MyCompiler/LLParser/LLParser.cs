@@ -101,17 +101,53 @@ namespace MyCompiler
         /// <returns></returns>
         public NumberCheck IsThisNumberDown(string str1)
         {
-            if (CheckNumber(str1, "0123456789ABCDF.Ee-"))
+            if(CheckNumber16(str1))//if (CheckNumber(str1, "x0123456789ABCDF"))
             {
-                m_element_str.Add(constNT);
-                return NumberCheck.True;   
+                //bool num = false;
+                //if (str1 == "x")
+                //{
+                //    return NumberCheck.False;
+                //}
+                try
+                {
+                    bool num = str1.Substring(str1.IndexOf("0x"), str1.IndexOf("0x") + 2) == "0x";
+                    if (num)
+                    {
+                        m_element_str.Add(constNT);
+                        return NumberCheck.True;
+                    }
+                }catch
+                {
+                    CompilerEvent.PrintMessageLLParser(string.Format("Число введено некоректно {0} введите число с добавление 0x{0}", str1));
+                    return NumberCheck.Error;
+                    
+                }
+                //if (num)
+                //{
+                //    m_element_str.Add(constNT);
+                //    return NumberCheck.True;   
+                //}
+                return NumberCheck.False;
             }
             else
             {
                 return NumberCheck.False;
             }
         }
-
+        public bool CheckNumber16(string str)
+        {
+            bool good;
+            try
+            {
+                good = true;
+                int i = Convert.ToInt32(str, 16);
+            }
+            catch (Exception e)
+            {
+                good = false;
+            }
+            return good;
+        }
         public bool CheckNumber(string str, string symbol)
         {
             bool number = false;
@@ -121,7 +157,7 @@ namespace MyCompiler
                if (!number) { return false; }
             }
             return number;
-        }
+        }   
         public void Algoritm_Down()
         {
             string str_nterminals = m_nterminals[0].m_name + " " + eps.m_name;
