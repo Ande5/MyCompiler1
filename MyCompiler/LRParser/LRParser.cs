@@ -326,12 +326,24 @@ namespace MyCompiler
                 }
                 else
                 {
-                    int nuber;
-                    //TODO: true или false в качестве const
-                    if (int.TryParse(word, out nuber))
+                    if (BooleanNumber(word))
                     {
-                        nuber = Convert.ToInt32(word, 16);
-                        splittedWords.Enqueue(new Word(13, "const") {Temp = nuber.ToString()});
+                        splittedWords.Enqueue(new Word(13, "const") { Temp = word });
+                    } else
+                    //TODO: true или false в качестве const
+                    if (CheckNumber16(word))
+                    {
+                        try
+                        {
+                            if (word.Substring(word.IndexOf("0x"), word.IndexOf("0x") + 2) == "0x")
+                            {
+                                splittedWords.Enqueue(new Word(13, "const") { Temp = word });
+                            }
+                        }
+                        catch
+                        {
+                            CompilerEvent.PrintMessageLRParser(string.Format("Число введено некоректно {0} введите число с добавление 0x{0}", word));
+                        }
                     }
                     else
                     {
@@ -343,7 +355,33 @@ namespace MyCompiler
             //TODO: Не забыть поставить символ конца цепочки
             return splittedWords;
         }
-
+        public bool BooleanNumber(string str)
+        {
+            try
+            {
+                if ((str.Substring(str.IndexOf("true"), str.IndexOf("true") + 4) == "true") ||
+                    (str.Substring(str.IndexOf("false"), str.IndexOf("false") + 4) == "false"))
+                {
+                    return true;
+                }
+            }
+            catch { return false; }
+            return false;
+        }
+        public bool CheckNumber16(string str)
+        {
+            bool good;
+            try
+            {
+                good = true;
+                int i = Convert.ToInt32(str, 16);
+            }
+            catch (Exception e)
+            {
+                good = false;
+            }
+            return good;
+        }
         public void Run(string str)
         {
             Queue<Word> words = Up(str);

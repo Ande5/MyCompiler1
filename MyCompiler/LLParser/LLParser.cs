@@ -101,38 +101,45 @@ namespace MyCompiler
         /// <returns></returns>
         public NumberCheck IsThisNumberDown(string str1)
         {
-            if(CheckNumber16(str1))//if (CheckNumber(str1, "x0123456789ABCDF"))
+           if (BooleanNumber(str1))
+           {
+               m_element_str.Add(constNT);
+               return NumberCheck.True;
+           }
+            if(CheckNumber16(str1))
             {
-                //bool num = false;
-                //if (str1 == "x")
-                //{
-                //    return NumberCheck.False;
-                //}
                 try
                 {
-                    bool num = str1.Substring(str1.IndexOf("0x"), str1.IndexOf("0x") + 2) == "0x";
-                    if (num)
+                    if (str1.Substring(str1.IndexOf("0x"), str1.IndexOf("0x") + 2) == "0x")
                     {
                         m_element_str.Add(constNT);
                         return NumberCheck.True;
                     }
-                }catch
+                }
+                catch
                 {
                     CompilerEvent.PrintMessageLLParser(string.Format("Число введено некоректно {0} введите число с добавление 0x{0}", str1));
                     return NumberCheck.Error;
-                    
                 }
-                //if (num)
-                //{
-                //    m_element_str.Add(constNT);
-                //    return NumberCheck.True;   
-                //}
                 return NumberCheck.False;
             }
             else
             {
                 return NumberCheck.False;
             }
+        }
+        public bool BooleanNumber(string str)
+        {
+            try
+            {
+                if ((str.Substring(str.IndexOf("true"), str.IndexOf("true") + 4) == "true") ||
+                    (str.Substring(str.IndexOf("false"), str.IndexOf("false") + 4) == "false"))
+                {
+                    return true;
+                }
+            }
+            catch { return false; }
+            return false;
         }
         public bool CheckNumber16(string str)
         {
