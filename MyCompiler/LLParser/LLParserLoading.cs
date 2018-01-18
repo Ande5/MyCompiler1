@@ -76,7 +76,9 @@ namespace MyCompiler
                                      {31,31,31,31,31,31,31,31,31,31,31,31,31,31,33}    
                                   };
 
-
+        /// <summary>
+        /// Парсим управляюще приавило
+        /// </summary>
         public void Read_Regulation()
         {
             Grammatics rule_down = new Grammatics();
@@ -181,19 +183,30 @@ namespace MyCompiler
             Read_Regulation();
             CheckRule_terminals();
         }
-
+        /// <summary>
+        /// Список терминалов
+        /// </summary>
         public List<Grammatics> Terminals
         {
             get { return m_Terminals; }
         }
+        /// <summary>
+        /// Список терминалов и нетерминалов
+        /// </summary>
         public List<Grammatics> NTerminals
         {
             get { return m_NTerminals; }
         }
+        /// <summary>
+        /// Список правил
+        /// </summary>
         public List<Grammatics> Rules
         {
             get { return m_Rules; }
         }
+        /// <summary>
+        /// Управляющая таблица грамматики
+        /// </summary>
         public int[,] Tabel
         {
             get { return m_Tabel; }

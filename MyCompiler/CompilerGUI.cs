@@ -25,7 +25,7 @@ namespace MyCompiler
             textInputData.Text = "else else := x ABF then := y FB if > x y then else := index [ 0 ] AB then := k 15A if & max s if > Max number1 else := s + s 1 then := number [ 1 ] * number [ 2 ] FFF if | n s";
             textInputData.Text = "else else := x 0xABF then := y 0xFB if > x y then else := index [ 0x0 ] 0xAB then := k 0x15A if & max s if > Max number1 else := s + s 0x1 then := number [ 0x1 ] * number [ 0x2 ] 0xFFF if | n s";
             textInputData.Text = "#else #else := x 0xABF #then := y 0xFB #if > x y #then #else := index [ 0x0 ] 0xAB #then := k 0x15A #if & max s #if > Max number1 #else := s + s 0x1 #then := number [ 0x1 ] * number [ 0x2 ] 0xFFF #if | n true";
-            textInputData.Text = "#else #else := x 0xABF #then := y 0xFB #if > x y #then #else := index [ 0x0 ] 0xAB #then := k 0x15A #if & max s #if > Max number1 #else := s + s 0x1 #then := number [ 0x1 ] * number [ 0x2 ] 0xFFF #if | n true #else := t [ 0xAB ] false #then := t [ 0xAB ] true #if > t min";
+            textInputData.Text = "#else #else := x 0xABF #then := y 0xFB #if > x y #then #else := index [ 0x0 ] 0xAB #then := k 0x15A #if & max s #if > Max number1 #else := s + s 0x1 #then := number [ 0x1 ] * number [ 0x2 ] 0xFFF #if | n true #else := t [ true ] false #then := t [ 0xAB ] true #if > t min";
         }
 
         private void PrintMessage(string text)

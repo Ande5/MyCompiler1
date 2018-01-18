@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyCompiler
 {
+    /// <summary>
+    /// Структура грамматики для нисходящего разбора
+    /// </summary>
     public struct Grammatics
     {
         public string m_name;

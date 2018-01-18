@@ -111,10 +111,7 @@ namespace MyCompiler
         {
             // Коллекций номеров правил
             List<int> rulesFound = new List<int>();
-            //TODO: XML док
             LinkedList<Word> stack = new LinkedList<Word>();
-
-            //TODO: Избавиться от зависимости последнего символа
             stack.AddLast(Words.Last());
 
             PrintInfo(stack, rulesFound, splittedWords);
@@ -122,8 +119,6 @@ namespace MyCompiler
             while (splittedWords.Count > 0)
             {
                 CompileActions action = CompileActions.Start;
-                
-                // Серем слово, для просмотра
                 Word word = splittedWords.Peek();
 
                 // Проверяем, является ли последний символ символом конца цепочки
@@ -133,7 +128,6 @@ namespace MyCompiler
                     {
                         // Если последний символ в стеке - символ цепочки S, а первый - символ клнца цепочки
                         // Тогда разбор окончен успешно
-                        // TODO: Убрать первый сивол, заменить
                         if ((stack.Last.Value.Number == Words.First().Number) && (stack.First.Value.Number == Words.Last().Number))
                         {
                             CompilerEvent.PrintCompileResult.Invoke(stack.Last.Value.Temp);
@@ -182,7 +176,6 @@ namespace MyCompiler
 
                             // Присваиваем начальный символ цепочки, для свертки
                             LinkedListNode<Word> srchNode = node;
-                            // Можно изменить способ сверки
                             for (var i = 0; i < cntWordsInStack; i++)
                             {
                                 // Сверяет последовательность слов в выбранном правиле с цепочкой правил в стеке
@@ -203,13 +196,13 @@ namespace MyCompiler
                                 // Загружаем последний элемент стека
                                 srchNode = stack.Last;
 
-                                // СмещаемЮ до первого элемента, в цепочке правил
+                                // Смещаем до первого элемента, в цепочке правил
                                 for (int i = 1; i < cntWordsInRule; i++)
                                 {
                                     srchNode = srchNode.Previous;
                                 }
                                 
-                                // Производим покпиляцию по правилу
+                                // Производим компиляцию по правилу
                                    MyCompil(ruleNumber, srchNode);
 
                                 // Присваиваем номер и символ правила, которое использовали
@@ -228,10 +221,8 @@ namespace MyCompiler
                                 }
 
                                 action = CompileActions.Next;
-                                //PrintCompileResult.Invoke($"Value: {node.Value.Value} \nRule: {node.Value.Number} \nTemp: {node.Value.Temp}");
                                 CompilerEvent.PrintCompileResult.Invoke(string.Format("Value: {0} \nRule: {1} \nTemp: {2}", node.Value.Value, node.Value.Number, node.Value.Temp));
                                 break;
-                                
                             }
                         }
                     }
@@ -246,56 +237,6 @@ namespace MyCompiler
             }
         }
 
-        public bool IsNumber(string str2, string dopstr, int k)
-        {
-            int pr2 = 0;
-            for (var i = 0; i < dopstr.Length; i++)
-            {
-                if (str2[k + 1] == i) pr2 = pr2 + 1;
-            }
-            return pr2 != 0;
-        }
-
-        /// <summary>
-        /// Проверяет значение на тип
-        /// </summary>
-        /// <param name="str">Строка, в которой осуществляется поиск</param>
-        /// <param name="startPos">Начальная позиция, для поиска</param>
-        /// <param name="endPos">Конечная позиция, для поиска</param>
-        /// <param name="splittedWords"></param>
-        /// <returns></returns>
-        public int IsThisNumber(string str, int startPos, int endPos, Queue<Word> splittedWords)
-        {
-            //Проверка булевых переменных
-            if (str.Substring(startPos, endPos + 1 - startPos) == " true" ||
-                str.Substring(startPos, endPos + 1 - startPos) == " false")
-            {
-                splittedWords.Enqueue(new Word(17, str.Substring(startPos, endPos + 1 - startPos)));
-                return 1;
-            }
-            //Проверка на число
-            if (IsNumber(str, "0123456789", startPos))
-            {
-                int srchLength = 0;
-                for (var i = startPos; i < endPos; i++)
-                {
-                    if (IsNumber(str, "0123456789.Ee-", i))
-                        srchLength = srchLength + 1;
-                }
-                if (srchLength == endPos - startPos)
-                {
-                    splittedWords.Enqueue(new Word(17, str.Substring(startPos, endPos + 1 - startPos)));
-
-                    return 1;
-                }
-                CompilerEvent.PrintMessageLRParser.Invoke(@"Нужно вводить вещественные" + '\n' + @" числа с порядком!" + '\r' +
-                                                          @"Ошибка --> " + str.Substring(startPos, endPos + 1 - startPos));
-                
-                return -1;
-            }
-            return 0;
-        }
-
         /// <summary>
         /// Парсит входную строку
         /// </summary>
@@ -305,12 +246,6 @@ namespace MyCompiler
         {
             string[] list = str.Split(' ');
             Queue<string> words = new Queue<string>(list);
-
-            //if (words.Contains("const"))
-            //{
-            //    throw new Exception("const - служебное слово");
-            //}
-
             // Коллекция строк, которые были получены в результате парсинга строки
             Queue<Word> splittedWords = new Queue<Word>();
 
@@ -329,9 +264,8 @@ namespace MyCompiler
                     if (BooleanNumber(word))
                     {
                         splittedWords.Enqueue(new Word(13, "const") { Temp = word });
-                    } else
-                    //TODO: true или false в качестве const
-                    if (CheckNumber16(word))
+                    } 
+                    else if (CheckNumber16(word))
                     {
                         try
                         {
@@ -352,7 +286,6 @@ namespace MyCompiler
                 }
             }
             splittedWords.Enqueue(new Word(20, "$"));
-            //TODO: Не забыть поставить символ конца цепочки
             return splittedWords;
         }
         public bool BooleanNumber(string str)
