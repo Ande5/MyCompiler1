@@ -33,8 +33,8 @@ namespace MyCompiler
                                       {0,0,0,0,2,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0},
                                       {0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,0}};
 
-        private string [] m_rule = { "S -> else W then W if Y",
-                                     "S -> else W then W if Y S",
+        private string [] m_rule = { "S -> #else W #then W #if Y",
+                                     "S -> #else W #then W #if Y S",
                                      "X -> := id",
                                      "X -> := id [ Y ]",
                                      "Y -> A",
@@ -51,7 +51,7 @@ namespace MyCompiler
                                      "R -> | A",
                                      "R -> > A" };
 
-        private string[] m_words = { "S", "X", "Y", "W", "A", "R", "else", "then", "if", ":=", "id", "[", "]", "const", "*", "&", "+", "-", "|", ">", "$" };
+        private string[] m_words = { "S", "X", "Y", "W", "A", "R", "#else", "#then", "#if", ":=", "id", "[", "]", "const", "*", "&", "+", "-", "|", ">", "$" };
         
         public LRParserLoading()
         {

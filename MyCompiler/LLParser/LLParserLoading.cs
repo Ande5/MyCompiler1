@@ -13,14 +13,14 @@ namespace MyCompiler
         List<Grammatics> m_Rules = new List<Grammatics>();
         List<Grammatics> m_Terminals = new List<Grammatics>();
         List<Grammatics> m_NTerminals = new List<Grammatics>();
-        private string  [] m_rule = {"S -> else Q",
+        private string  [] m_rule = {"S -> #else Q",
                                      "Q -> Y Z",
                                      "Q -> S Z",
                                      "S -> eps",
-                                     "Z -> then L",
+                                     "Z -> #then L",
                                      "L -> Y I",
                                      "L -> S I",
-                                     "I -> if K S",
+                                     "I -> #if K S",
                                      "Y -> := id D",
                                      "K -> A Y",
                                      "D -> eps",
